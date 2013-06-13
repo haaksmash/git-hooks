@@ -84,23 +84,24 @@ def update_py_source(filename):
 
     return True
 
-files = [
-    x for x in subprocess.check_output("git diff --cached --name-status", shell=True).split('\n')\
-        if x and x[0] != "D"
-]
+if __name__ == "__main__":
+    files = [
+        x for x in subprocess.check_output("git diff --cached --name-status", shell=True).split('\n')\
+            if x and x[0] != "D"
+    ]
 
-changed_files = False
+    changed_files = False
 
-print "Checking for copyright notices..."
-for statusline in files:
-    mode, fname = statusline.split('\t')
-    if mode == "A" and fname.endswith('.py'):
-        if copyrighter.update_py_source(fname):
-            subprocess.check_output("git add {}".format(fname), shell=True)
-            print "\tAdded copyright notice to {}".format(fname)
-            changed_files = True
+    print "Checking for copyright notices..."
+    for statusline in files:
+        mode, fname = statusline.split('\t')
+        if mode == "A" and fname.endswith('.py'):
+            if copyrighter.update_py_source(fname):
+                subprocess.check_output("git add {}".format(fname), shell=True)
+                print "\tAdded copyright notice to {}".format(fname)
+                changed_files = True
 
-if changed_files:
-    print "Please check that the modifications are correct and"
-    print "re-commit."
-    sys.exit(1)
+    if changed_files:
+        print "Please check that the modifications are correct and"
+        print "re-commit."
+        sys.exit(1)
