@@ -12,7 +12,7 @@ for appropriate documentation on new methods.
 
 Adds a copyright notice to the top of every ADDED file
 
-## readme_updater
+## pypi_readme_synchronizer
 
 Found this one useful for handling projects uploaded to PyPi; given a
 github-style README, this hook will make a README.txt to reflect it in a way
